@@ -1,0 +1,31 @@
+.kanan {
+  background-image: url("../img/paperplane-illus.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.blue-green {
+  background: linear-gradient(356.42deg, #007c96 3.2%, #0099b8 97.33%);
+}
+
+.text-blue-green {
+  color: #008fac;
+}
+
+.bg-biru {
+  background: linear-gradient(224.74deg, #30b6be 0.95%, #3ea5d0 91.88%);
+}
+
+.unactive {
+  color: #b1b1b1;
+}
+
+.border-blueish {
+  border-color: #008fac;
+}
+
+.paperAirplaneRed {
+  background-image: url("../img/paperplane-red.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
