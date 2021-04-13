@@ -11,70 +11,60 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <title>Login Page</title>
   </head>
-  <body class="bg-biru h-auto">
-    <div class="flex h-auto">
-      <div class="kiri flex flex-col w-1/2 p-20 pt-6 bg-white">
-        <img class="w-1/5" src="{{ asset('img/main-logo.svg') }}" alt="" />
-        <div class="my-14 ml-2">
-          <h1 class="text-4xl font-bold text-gray-700">Welcome Back!</h1>
-          <p class="pt-2">Let’s discover your future trip destination</p>
-        </div>
-        <div class="flex flex-col p-2">
-          <form action="{{ route('login') }}" method="POST">
-            @csrf
-            <input
-              type="email"
-              placeholder="  Email"
-              name="email"
-              class="border-2 w-80 mb-6 rounded-md p-2"
-            />
+  <body class="bg-pesawat flex justify-center content-center">
+    <div
+      class="bg-white flex-col justify-center w-2/5 p-2 py-10 text-center my-16 rounded-lg"
+    >
+      <img class="w-1/4 mx-auto" src="{{asset('assets/logo-black.png')}}" alt="" />
+      <h1 class="text-4xl font-bold pt-6 text-gray-800">Welcome Back!</h1>
+      <p class="text-gray-500 pt-2 w-3/4 mx-auto">
+        Let’s discover your future trip destination
+      </p>
 
-            <br>
-            <div class="border-2 flex w-80 h-12 rounded-md mb-2">
-              <input
-                id="passwordLogin"
-                type="password"
-                placeholder="  Password"
-                name="password"
-                class="w-80 p-2"
-              />
-            </div>
-            @if (session('error'))
-                <div class="alert alert-danger text-red-500">{{ session('error') }}</div>
-            @endif
-            <div class="flex">
-              <div class="mb-32">
-                <input type="checkbox" id="remember" />
-                <label for="remember" class="text-blue-green text-sm"
-                  >Remember Me</label
-                >
-              </div>
-              <div class="pl-24">
-                <a href="./register.html" class="text-blue-green text-sm"
-                  >Forgot Password?</a
-                >
-              </div>
-            </div>
-            <div>
-              <button
-                class="btn bg-blue-200 p-2 w-80 blue-green text-white font-semibold h-12 rounded-md"
-              >
-                Log In
-              </button>
-              <p class="pl-14 text-sm pt-4">
-                Don't have an account?
-                <a
-                  href="./register.html"
-                  class="text-blue-green hover:underline"
-                  >Sign up</a
-                >
-              </p>
-            </div>
-          </form>
+      <form action="{{route('login')}}" method="POST">
+      @csrf
+        <input
+          class="border-2 border-gray-300 rounded-sm mx-half w-3/4 mt-10 mb-6 p-2 rounded-md"
+          type="email"
+          placeholder="Email"
+          name="email"
+        />
+        <input
+          class="border-2 border-gray-300 rounded-sm mx-half w-3/4 p-2 rounded-md"
+          type="password"
+          placeholder="Password"
+          name="password"
+        />
+
+        <div class="flex pt-2">
+          <div class="mb-24 pl-16">
+            <input type="checkbox" id="remember" />
+            <label for="remember" class="text-blue-green text-sm pl-1">
+              Remember Me</label
+            >
+          </div>
+          <div class="pl-36">
+            <a href="{{route('password.request')}}" class="text-blue-400 text-sm"
+              >Forgot Password?</a
+            >
+          </div>
         </div>
-      </div>
-      <div class="kanan w-1/2"></div>
+
+        <div>
+          <button
+            class="biru-button text-white font-semibold py-4 w-3/4 text-md rounded-md mt-10 hover:shadow-lg"
+            type="submit"
+          >
+            Log in
+          </button>
+
+          <p class="pt-4 text-gray-400 text-sm">
+            Don't have an account?
+            <a href="{{route('register')}}"><span class="text-blue-400">Sign up</span></a>
+          </p>
+        </div>
+      </form>
     </div>
-    <script src="../script/script.js"></script>
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>  
   </body>
 </html>

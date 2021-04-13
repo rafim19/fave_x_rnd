@@ -50,6 +50,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'fullname'=>['required','string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'min:8', 'string', 'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\d\x]).+$/', 'confirmed'],
             'dob' => ['required'],
@@ -76,12 +77,13 @@ class RegisterController extends Controller
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('id_card')->getClientOriginalExtension();
             $fileNameToStoreid = $fileName.'_'.time().'_'.'.'.$extension;
-            $path = $request->file('id_card')->storeAs('public/pp', $fileNameToStoreid);
+            $path = $request->file('id_card')->storeAs('public/id', $fileNameToStoreid);
         }else{
             $fileNameToStoreid = 'no-image.jpg';
         }
 
         return User::create([
+            'fullname' => $data['fullname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'dob' => $data['dob'],
