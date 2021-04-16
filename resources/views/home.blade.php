@@ -18,23 +18,59 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{asset('css/main.css')}}" />
-    <title>Home</title>
+    <link rel="stylesheet" href="../style/main.css" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>JoFlights</title>
   </head>
   <body class="bg-white flex flex-col">
     <div class="header bg-pesawat text-white">
-      <nav class="flex py-8 px-24 justify-between">
-        <img class="w-11persen" src="../assets/logo-white.png" alt="" />
-        <div class="flex space-x-6">
-          <button class="w-36 border-r-2 pr-8" type="button">
-            Check Order
-          </button>
-          <button class="w-20" type="button">Log in</button>
-          <button class="w-32 border-2 rounded-full" type="button">
-            Register
-          </button>
+      <!-- start nav -->
+      <!-- nav blue signed in -->
+      <nav id="regisBlue" class="flex py-8 px-24 justify-between sticky top-0">
+        <img class="w-30 h-10" src="../assets/logo-white.png" alt="" />
+        <div class="flex flex-col">
+          <div class="flex space-x-6">
+            <button class="w-36 pr-8" type="button">Check Order</button>
+            <img
+              class="cursor-pointer"
+              src="../assets/fillerpic.svg"
+              alt=""
+              onclick="popUpBlue()"
+            />
+          </div>
+          <div
+            id="profilePopUpBlue"
+            class="bg-white text-gray-700 rounded-lg px-4 py-6 w-9/12 mt-3 ml-4"
+            style="display: none"
+          >
+            <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
+              <img src="../assets/fillerpic.svg" alt="" />
+              <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+            </div>
+            <div class="flex flex-col space-y-5">
+              <a href="">
+              <div class="flex">
+                <img src="../assets/userUnactive.svg" alt="" />
+                <p class="pl-4">Profile</p>
+              </div>
+            </a>
+            <a href="">
+              <div class="flex">
+                <img src="../assets/icon/lock.svg" alt="" />
+                <p class="pl-4">Change Password</p>
+              </div>
+            </a>
+            <a href="">
+              <div class="flex">
+                <img src="../assets/icon/door.svg" alt="" />
+                <p class="pl-4">Log Out</p>
+              </div>
+            </a>
+            </div>
+          </div>
         </div>
       </nav>
+      <!-- stop nav -->
       <div class="flex flex-col text-center my-6">
         <h1 class="text-4xl font-semibold tracking-widest">
           Book your flight right from seat
@@ -54,6 +90,48 @@
         </div>
       </div>
     </div>
+    <!-- nav white signed in -->
+    <nav
+      id="regisWhite"
+      class="flex py-8 px-24 justify-between sticky top-0 text-gray-700"
+    >
+      <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
+      <div class="flex flex-col">
+        <div class="flex space-x-6">
+          <button class="w-36 pr-8" type="button">Check Order</button>
+          <img
+            class="cursor-pointer"
+            src="../assets/fillerpic.svg"
+            alt=""
+            onclick="popUpWhite()"
+          />
+        </div>
+        <div
+          id="profilePopUpWhite"
+          class="bg-white text-gray-700 rounded-lg px-4 py-6 w-9/12 mt-3 ml-4"
+          style="display: none"
+        >
+          <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
+            <img src="../assets/fillerpic.svg" alt="" />
+            <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+          </div>
+          <div class="flex flex-col space-y-5">
+            <div class="flex">
+              <img src="../assets/userUnactive.svg" alt="" />
+              <p class="pl-4">Profile</p>
+            </div>
+            <div class="flex">
+              <img src="../assets/icon/lock.svg" alt="" />
+              <p class="pl-4">Change Password</p>
+            </div>
+            <div class="flex">
+              <img src="../assets/icon/door.svg" alt="" />
+              <p class="pl-4">Log Out</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <!-- ini yang ituannya tiket.com -->
     <div
       id="btnModal"
@@ -69,20 +147,26 @@
           <!-- from -->
           <div class="flex flex-col">
             <p>From</p>
-            <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+            <div class="flex flex-row border-b-2 border-gray-100 mt-1">
               <img src="../assets/icon/departure.svg" alt="" />
-              <input
-                class="pl-2"
-                type="text"
-                name="from"
-                id=""
-                placeholder="   From"
-              />
+              <!-- dari sini -->
+              <div id="fromWhite" class="mx-4">
+                <!-- ini yg munculin valuenya -->
+                <p id="valueFromWhite">{{selected}}</p>
+                <!-- dropdownnya -->
+                <select v-model="selected" class="w-150">
+                  <option v-for="option in options" v-bind:value="option.value">
+                    {{option.text}}
+                  </option>
+                </select>
+                <!-- dropdownnya -->
+              </div>
+              <!-- sampe sini -->
             </div>
           </div>
           <!-- switch -->
-          <div class="flex flex-col my-4 mx-10">
+          <!-- BIKIN FUNCTION SWITCHNYA -->
+          <div class="flex flex-col my-4 mx-10" onclick="tuker()">
             <button type="button" class="border-2 border-gray-200 rounded-full">
               <img class="w-10" src="../assets/icon/switch.svg" alt="" />
             </button>
@@ -91,21 +175,27 @@
           <div class="flex flex-col">
             <p>To</p>
             <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+            <div class="flex flex-row border-b-2 border-gray-100 mt-1">
               <img src="../assets/icon/landing.svg" alt="" />
-              <input
-                class="pl-2"
-                type="text"
-                name="to"
-                id=""
-                placeholder="  To"
-              />
+              <!-- dari sini -->
+              <div id="toWhite" class="mx-4">
+                <!-- ini yg munculin valuenya -->
+                <p id="valueToWhite">@{{selected}}</p>
+                <!-- dropdownnya -->
+                <select v-model="selected" class="w-150">
+                  <option v-for="option in options" v-bind:value="option.value">
+                    @{{option.text}}
+                  </option>
+                </select>
+                <!-- dropdownnya -->
+              </div>
+              <!-- sampe sini -->
             </div>
           </div>
           <!-- passenger -->
           <div class="flex flex-col ml-10 w-1/2">
             <p>Passengers</p>
-            <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+            <div class="flex flex-row border-b-2 border-gray-100 mt-4">
               <img src="../assets/icon/passenger.svg" alt="" />
               <input
                 class="pl-2 w-1/2"
@@ -130,7 +220,7 @@
           <div class="flex flex-col">
             <p>Departure Date</p>
             <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+            <div class="flex flex-row border-b-2 border-gray-100 mt-4">
               <img src="../assets/icon/calendar.svg" alt="" />
               <input class="pl-2" type="date" name="date" id="" />
             </div>
@@ -140,14 +230,20 @@
             <p>Seat Class</p>
             <!-- cari cara dropdown semua bandaranya -->
             <div class="flex flex-row border-b-2 border-gray-100 mt-2">
-              <img src="../assets/icon/seat.svg" alt="" />
-              <input
-                class="pl-2"
-                type="text"
-                name="seat"
-                id=""
-                placeholder="   Seat Class"
-              />
+              <img src="../assets/icon/seat.svg" class="w-11persen" alt="" />
+              <!-- dari sini -->
+              <div id="seatWhite" class="mx-4">
+                <!-- ini yg munculin valuenya -->
+                <p id="valueSeatWhite">{{selected}}</p>
+                <!-- dropdownnya -->
+                <select v-model="selected" class="w-150">
+                  <option v-for="option in options" v-bind:value="option.value">
+                    {{option.text}}
+                  </option>
+                </select>
+                <!-- dropdownnya -->
+              </div>
+              <!-- sampe sini -->
             </div>
           </div>
         </div>
@@ -177,46 +273,54 @@
             <!-- from -->
             <div class="flex flex-col">
               <p>From</p>
-              <!-- cari cara dropdown semua bandaranya -->
-              <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+              <div class="flex flex-row border-b-2 border-gray-100 mt-1">
                 <img src="../assets/icon/departure.svg" alt="" />
-                <input
-                  class="pl-2"
-                  type="text"
-                  name="from"
-                  id=""
-                  placeholder="   From"
-                />
+                <!-- dari sini -->
+                <div id="fromModal" class="mx-4">
+                  <!-- ini yg munculin valuenya -->
+                  <p id="valueFromModal">{{selected}}</p>
+                  <!-- dropdownnya -->
+                  <select v-model="selected" class="w-150">
+                    <option
+                      v-for="option in options"
+                      v-bind:value="option.value"
+                    >
+                      {{option.text}}
+                    </option>
+                  </select>
+                  <!-- dropdownnya -->
+                </div>
+                <!-- sampe sini -->
               </div>
-            </div>
-            <!-- switch -->
-            <div class="flex flex-col my-4 mx-10">
-              <button
-                type="button"
-                class="border-2 border-gray-200 rounded-full"
-              >
-                <img class="w-10" src="../assets/icon/switch.svg" alt="" />
-              </button>
             </div>
             <!-- to -->
             <div class="flex flex-col">
               <p>To</p>
               <!-- cari cara dropdown semua bandaranya -->
-              <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+              <div class="flex flex-row border-b-2 border-gray-100 mt-1">
                 <img src="../assets/icon/landing.svg" alt="" />
-                <input
-                  class="pl-2"
-                  type="text"
-                  name="to"
-                  id=""
-                  placeholder="  To"
-                />
+                <!-- dari sini -->
+                <div id="toModal" class="mx-4">
+                  <!-- ini yg munculin valuenya -->
+                  <p id="valueToModal">{{selected}}</p>
+                  <!-- dropdownnya -->
+                  <select v-model="selected" class="w-150">
+                    <option
+                      v-for="option in options"
+                      v-bind:value="option.value"
+                    >
+                      {{option.text}}
+                    </option>
+                  </select>
+                  <!-- dropdownnya -->
+                </div>
+                <!-- sampe sini -->
               </div>
             </div>
             <!-- passenger -->
             <div class="flex flex-col ml-10 w-1/2">
               <p>Passengers</p>
-              <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+              <div class="flex flex-row border-b-2 border-gray-100 mt-4">
                 <img src="../assets/icon/passenger.svg" alt="" />
                 <input
                   class="pl-2 w-1/2"
@@ -241,7 +345,7 @@
             <div class="flex flex-col">
               <p>Departure Date</p>
               <!-- cari cara dropdown semua bandaranya -->
-              <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+              <div class="flex flex-row border-b-2 border-gray-100 mt-4">
                 <img src="../assets/icon/calendar.svg" alt="" />
                 <input class="pl-2" type="date" name="date" id="" />
               </div>
@@ -251,14 +355,23 @@
               <p>Seat Class</p>
               <!-- cari cara dropdown semua bandaranya -->
               <div class="flex flex-row border-b-2 border-gray-100 mt-2">
-                <img src="../assets/icon/seat.svg" alt="" />
-                <input
-                  class="pl-2"
-                  type="text"
-                  name="seat"
-                  id=""
-                  placeholder="   Seat Class"
-                />
+                <img src="../assets/icon/seat.svg" class="w-11persen" alt="" />
+                <!-- dari sini -->
+                <div id="seatModal" class="mx-4">
+                  <!-- ini yg munculin valuenya -->
+                  <p id="valueSeatModal">{{selected}}</p>
+                  <!-- dropdownnya -->
+                  <select v-model="selected" class="w-150">
+                    <option
+                      v-for="option in options"
+                      v-bind:value="option.value"
+                    >
+                      {{option.text}}
+                    </option>
+                  </select>
+                  <!-- dropdownnya -->
+                </div>
+                <!-- sampe sini -->
               </div>
             </div>
           </div>
@@ -466,7 +579,8 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
     ></script>
-    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>  
+    <script src="../script/script.js"></script>
+    <script src="../script/tiketScript.js"></script>
     <script>
       var modal = document.getElementById("modalnya");
       var btnModal = document.getElementById("btnModal");

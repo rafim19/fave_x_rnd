@@ -10,13 +10,13 @@
       rgba(105, 161, 249, 0.6468) 50.33%,
       rgba(18, 89, 248, 0.6048) 95.75%
     ),
-    url("/assets/airplane-hero-background.png");
+    url("assets/airplane-hero-background.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .paperAirplaneRed {
-  background-image: url("/assets/paperplane-red.svg");
+  background-image: url("assets/paperplane-red.svg");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -57,6 +57,12 @@
 }
 .w-11persen {
   width: 11%;
+}
+.w-150 {
+  width: 105%;
+}
+.wf-35 {
+  width: 36px;
 }
 
 /* yang pas di klik belakangnya item */

@@ -1,36 +1,80 @@
 // login
 function displayPass() {
-  var x = document.getElementById("passwordLogin");
+  let x = document.getElementById("passwordLogin");
   if (x.type === "password") {
-    x.type = "text";
+      x.type = "text";
   } else {
-    x.type = "password";
+      x.type = "password";
   }
 }
 
 function displayConfirmPass() {
-  var x = document.getElementById("confirm-password");
+  let x = document.getElementById("confirm-password");
   if (x.type === "password") {
-    x.type = "text";
+      x.type = "text";
   } else {
-    x.type = "password";
+      x.type = "password";
   }
 }
 
 //   register
-function switchDisplay(){
-  var profilePic = document.getElementById("submitProfilePicture");
-  var pInfo =  document.getElementById("personalInfo");
-  
-  if(profilePic.style.display === "none" || pInfo.style.display === "block")
-  {
-    profilePic.style.display = "block";
-    pInfo.style.display = "none";
+function switchDisplay() {
+  let profilePic = document.getElementById("submitProfilePicture");
+  let pInfo = document.getElementById("personalInfo");
+
+  if (profilePic.style.display === "none" || pInfo.style.display === "block") {
+      profilePic.style.display = "block";
+      pInfo.style.display = "none";
 
   }
-  else if(profilePic.style.display === "block" || pInfo.style.display === "none")
-  {
-    profilePic.style.display = "none";
-    pInfo.style.display = "block";
+  else if (profilePic.style.display === "block" || pInfo.style.display === "none") {
+      profilePic.style.display = "none";
+      pInfo.style.display = "block";
+  }
+}
+
+let lowerCase = /[a-z]/g;
+let upperCase = /[A-Z]/g;
+let number = /[0-9]/g;
+
+// changePassword
+function confirmChangePass() {
+  let newPass = document.getElementById("newPassword");
+  let confirmNewPass = document.getElementById("confirmNewPassword");
+  let btnConfirmPass = document.getElementById("submitConfirmPass");
+  if (newPass.value != confirmNewPass.value) {
+      btnConfirmPass.type = "button";
+      alert("Confirmation Password and Password doen't Match!");
+  }
+  else if (newPass.value === confirmNewPass.value) {
+      btnConfirmPass.type = "submit";
+  }
+}
+
+// carousel
+$('.one-time').slick({
+  dots: true,
+  infinite: true,
+  speed: 350,
+  slidesToShow: 1,
+  adaptiveHeight: true,
+  arrows: false
+});
+
+function popUpBlue(){
+  let pop = document.getElementById("profilePopUpBlue");
+  if(pop.style.display === "none"){
+      pop.style.display = "block";
+  } else{
+      pop.style.display = "none";
+  }
+}
+
+function popUpWhite(){
+  let pop = document.getElementById("profilePopUpWhite");
+  if(pop.style.display === "none"){
+      pop.style.display = "block";
+  } else{
+      pop.style.display = "none";
   }
 }
