@@ -15,6 +15,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
     protected $fillable = [
        'fullname', 'email', 'password', 'dob', 'address', 'profile_picture', 'id_card'
     ];
