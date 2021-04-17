@@ -88,8 +88,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'dob' => $data['dob'],
             'address' => $data['address'],
-            'id_card' => $fileNameToStore,
-            'profile_picture' => $fileNameToStoreid,
+            'id_card' => $fileNameToStoreid,
+            'profile_picture' => $fileNameToStore,
         ]);
     }
     
