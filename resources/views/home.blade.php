@@ -18,7 +18,7 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../style/main.css" />
+    <link rel="stylesheet" href="{{asset('css/main.css')}}" />
     <script src="https://unpkg.com/vue@next"></script>
     <title>JoFlights</title>
   </head>
@@ -27,13 +27,18 @@
       <!-- start nav -->
       <!-- nav blue signed in -->
       <nav id="regisBlue" class="flex py-8 px-24 justify-between sticky top-0">
-        <img class="w-30 h-10" src="../assets/logo-white.png" alt="" />
+        <a href="{{ route('home') }}">
+          <img class="w-30 h-10" src="../assets/logo-white.png" alt="" />
+        </a>
         <div class="flex flex-col">
           <div class="flex space-x-6">
-            <button class="w-36 pr-8" type="button">Check Order</button>
+            <button class="w-36 pr-8" type="button">
+              <a href="{{ route('order') }}">Check Order</a>
+            </button>
             <img
               class="cursor-pointer"
-              src="../assets/fillerpic.svg"
+              src="../assets/userUnactive.svg"
+              {{-- src="{{ asset('storage/pp/'.Auth::user()->profile_picture) }}" --}}
               alt=""
               onclick="popUpBlue()"
             />
@@ -45,27 +50,30 @@
           >
             <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
               <img src="../assets/fillerpic.svg" alt="" />
-              <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+              <h1 class="text-2xl w-1/2 text-center pl-2">{{ Auth::user()->fullname }}</h1>
             </div>
             <div class="flex flex-col space-y-5">
               <a href="">
-              <div class="flex">
-                <img src="../assets/userUnactive.svg" alt="" />
-                <p class="pl-4">Profile</p>
-              </div>
-            </a>
-            <a href="">
-              <div class="flex">
-                <img src="../assets/icon/lock.svg" alt="" />
-                <p class="pl-4">Change Password</p>
-              </div>
-            </a>
-            <a href="">
-              <div class="flex">
-                <img src="../assets/icon/door.svg" alt="" />
-                <p class="pl-4">Log Out</p>
-              </div>
-            </a>
+                <div class="flex">
+                  <img src="../assets/userUnactive.svg" alt="" />
+                  <p class="pl-4">Profile</p>
+                </div>
+              </a>
+              <a href="">
+                <div class="flex">
+                  <img src="../assets/icon/lock.svg" alt="" />
+                  <p class="pl-4">Change Password</p>
+                </div>
+              </a>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <a href="">
+                  <div class="flex">
+                    <img src="../assets/icon/door.svg" alt="" />
+                    <button type="submit" class="pl-4">Log Out</button>
+                  </div>
+                </a>
+              </form>
             </div>
           </div>
         </div>
@@ -93,12 +101,14 @@
     <!-- nav white signed in -->
     <nav
       id="regisWhite"
-      class="flex py-8 px-24 justify-between sticky top-0 text-gray-700"
+      class="flex py-8 px-24 justify-between sticky top-0 text-gray-700 bg-white"
     >
       <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
       <div class="flex flex-col">
         <div class="flex space-x-6">
-          <button class="w-36 pr-8" type="button">Check Order</button>
+          <button class="w-36 pr-8" type="button">
+            <a href="">Check Order</a>
+          </button>
           <img
             class="cursor-pointer"
             src="../assets/fillerpic.svg"
@@ -118,149 +128,24 @@
           <div class="flex flex-col space-y-5">
             <div class="flex">
               <img src="../assets/userUnactive.svg" alt="" />
-              <p class="pl-4">Profile</p>
+              <a href=""> <p class="pl-4">Profile</p> </a>
             </div>
             <div class="flex">
               <img src="../assets/icon/lock.svg" alt="" />
-              <p class="pl-4">Change Password</p>
+              <a href=""> <p class="pl-4">Change Password</p> </a>
             </div>
             <div class="flex">
               <img src="../assets/icon/door.svg" alt="" />
-              <p class="pl-4">Log Out</p>
+              <a href=""> <p class="pl-4">Log Out</p> </a>
             </div>
           </div>
         </div>
       </div>
     </nav>
     <!-- ini yang ituannya tiket.com -->
-    <div
-      id="btnModal"
-      class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
-    >
-      <h1 class="text-black text-3xl font-semibold">
-        Where would you like to go?
-      </h1>
-      <!-- menu milih mesen -->
-      <div class="flex flex-col my-4">
-        <!-- atas -->
-        <div class="flex flex-row">
-          <!-- from -->
-          <div class="flex flex-col">
-            <p>From</p>
-            <div class="flex flex-row border-b-2 border-gray-100 mt-1">
-              <img src="../assets/icon/departure.svg" alt="" />
-              <!-- dari sini -->
-              <div id="fromWhite" class="mx-4">
-                <!-- ini yg munculin valuenya -->
-                <p id="valueFromWhite">{{selected}}</p>
-                <!-- dropdownnya -->
-                <select v-model="selected" class="w-150">
-                  <option v-for="option in options" v-bind:value="option.value">
-                    {{option.text}}
-                  </option>
-                </select>
-                <!-- dropdownnya -->
-              </div>
-              <!-- sampe sini -->
-            </div>
-          </div>
-          <!-- switch -->
-          <!-- BIKIN FUNCTION SWITCHNYA -->
-          <div class="flex flex-col my-4 mx-10" onclick="tuker()">
-            <button type="button" class="border-2 border-gray-200 rounded-full">
-              <img class="w-10" src="../assets/icon/switch.svg" alt="" />
-            </button>
-          </div>
-          <!-- to -->
-          <div class="flex flex-col">
-            <p>To</p>
-            <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-1">
-              <img src="../assets/icon/landing.svg" alt="" />
-              <!-- dari sini -->
-              <div id="toWhite" class="mx-4">
-                <!-- ini yg munculin valuenya -->
-                <p id="valueToWhite">@{{selected}}</p>
-                <!-- dropdownnya -->
-                <select v-model="selected" class="w-150">
-                  <option v-for="option in options" v-bind:value="option.value">
-                    @{{option.text}}
-                  </option>
-                </select>
-                <!-- dropdownnya -->
-              </div>
-              <!-- sampe sini -->
-            </div>
-          </div>
-          <!-- passenger -->
-          <div class="flex flex-col ml-10 w-1/2">
-            <p>Passengers</p>
-            <div class="flex flex-row border-b-2 border-gray-100 mt-4">
-              <img src="../assets/icon/passenger.svg" alt="" />
-              <input
-                class="pl-2 w-1/2"
-                type="number"
-                name="adults"
-                id=""
-                placeholder="Adult"
-              />
-              <input
-                class="pl-2 w-1/2"
-                type="number"
-                name="children"
-                id=""
-                placeholder="Child"
-              />
-            </div>
-          </div>
-        </div>
-        <!-- bawah -->
-        <div class="flex flex-row my-4">
-          <!-- departure date-->
-          <div class="flex flex-col">
-            <p>Departure Date</p>
-            <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-4">
-              <img src="../assets/icon/calendar.svg" alt="" />
-              <input class="pl-2" type="date" name="date" id="" />
-            </div>
-          </div>
-          <!-- seat class -->
-          <div class="flex flex-col mx-40">
-            <p>Seat Class</p>
-            <!-- cari cara dropdown semua bandaranya -->
-            <div class="flex flex-row border-b-2 border-gray-100 mt-2">
-              <img src="../assets/icon/seat.svg" class="w-11persen" alt="" />
-              <!-- dari sini -->
-              <div id="seatWhite" class="mx-4">
-                <!-- ini yg munculin valuenya -->
-                <p id="valueSeatWhite">{{selected}}</p>
-                <!-- dropdownnya -->
-                <select v-model="selected" class="w-150">
-                  <option v-for="option in options" v-bind:value="option.value">
-                    {{option.text}}
-                  </option>
-                </select>
-                <!-- dropdownnya -->
-              </div>
-              <!-- sampe sini -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- button -->
-      <div class="flex flex-row-reverse">
-        <button
-          type="submit"
-          class="biru-button text-white p-3 rounded-md font-semibold w-1/6"
-        >
-          Book Now
-        </button>
-      </div>
-    </div>
-    <!-- modalnya -->
-    <div id="modalnya" class="modal">
+    <form action="">
       <div
+        id="btnModal"
         class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
       >
         <h1 class="text-black text-3xl font-semibold">
@@ -276,16 +161,16 @@
               <div class="flex flex-row border-b-2 border-gray-100 mt-1">
                 <img src="../assets/icon/departure.svg" alt="" />
                 <!-- dari sini -->
-                <div id="fromModal" class="mx-4">
+                <div id="fromWhite" class="mx-4">
                   <!-- ini yg munculin valuenya -->
-                  <p id="valueFromModal">{{selected}}</p>
+                  <p id="valueFromWhite">@{{selected}}</p>
                   <!-- dropdownnya -->
                   <select v-model="selected" class="w-150">
                     <option
                       v-for="option in options"
                       v-bind:value="option.value"
                     >
-                      {{option.text}}
+                      @{{option.text}}
                     </option>
                   </select>
                   <!-- dropdownnya -->
@@ -300,16 +185,16 @@
               <div class="flex flex-row border-b-2 border-gray-100 mt-1">
                 <img src="../assets/icon/landing.svg" alt="" />
                 <!-- dari sini -->
-                <div id="toModal" class="mx-4">
+                <div id="toWhite" class="mx-4">
                   <!-- ini yg munculin valuenya -->
-                  <p id="valueToModal">{{selected}}</p>
+                  <p id="valueToWhite">@{{selected}}</p>
                   <!-- dropdownnya -->
                   <select v-model="selected" class="w-150">
                     <option
                       v-for="option in options"
                       v-bind:value="option.value"
                     >
-                      {{option.text}}
+                      @{{option.text}}
                     </option>
                   </select>
                   <!-- dropdownnya -->
@@ -357,16 +242,16 @@
               <div class="flex flex-row border-b-2 border-gray-100 mt-2">
                 <img src="../assets/icon/seat.svg" class="w-11persen" alt="" />
                 <!-- dari sini -->
-                <div id="seatModal" class="mx-4">
+                <div id="seatWhite" class="mx-4">
                   <!-- ini yg munculin valuenya -->
-                  <p id="valueSeatModal">{{selected}}</p>
+                  <p id="valueSeatWhite">@{{selected}}</p>
                   <!-- dropdownnya -->
                   <select v-model="selected" class="w-150">
                     <option
                       v-for="option in options"
                       v-bind:value="option.value"
                     >
-                      {{option.text}}
+                      @{{option.text}}
                     </option>
                   </select>
                   <!-- dropdownnya -->
@@ -379,15 +264,150 @@
         <!-- button -->
         <div class="flex flex-row-reverse">
           <button
-            id="bookNow"
-            type="button"
-            class="biru-button text-white p-3 rounded-md font-semibold w-1/6"
+            type="submit"
+            class="biru-button text-white p-3 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg"
           >
             Book Now
           </button>
         </div>
       </div>
-    </div>
+    </form>
+    <!-- modalnya -->
+    <form action="">
+      <div id="modalnya" class="modal">
+        <div
+          class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
+        >
+          <h1 class="text-black text-3xl font-semibold">
+            Where would you like to go?
+          </h1>
+          <!-- menu milih mesen -->
+          <div class="flex flex-col my-4">
+            <!-- atas -->
+            <div class="flex flex-row">
+              <!-- from -->
+              <div class="flex flex-col">
+                <p>From</p>
+                <div class="flex flex-row border-b-2 border-gray-100 mt-1">
+                  <img src="../assets/icon/departure.svg" alt="" />
+                  <!-- dari sini -->
+                  <div id="fromModal" class="mx-4">
+                    <!-- ini yg munculin valuenya -->
+                    <p id="valueFromModal">@{{selected}}</p>
+                    <!-- dropdownnya -->
+                    <select v-model="selected" class="w-150">
+                      <option
+                        v-for="option in options"
+                        v-bind:value="option.value"
+                      >
+                        @{{option.text}}
+                      </option>
+                    </select>
+                    <!-- dropdownnya -->
+                  </div>
+                  <!-- sampe sini -->
+                </div>
+              </div>
+              <!-- to -->
+              <div class="flex flex-col">
+                <p>To</p>
+                <!-- cari cara dropdown semua bandaranya -->
+                <div class="flex flex-row border-b-2 border-gray-100 mt-1">
+                  <img src="../assets/icon/landing.svg" alt="" />
+                  <!-- dari sini -->
+                  <div id="toModal" class="mx-4">
+                    <!-- ini yg munculin valuenya -->
+                    <p id="valueToModal">@{{selected}}</p>
+                    <!-- dropdownnya -->
+                    <select v-model="selected" class="w-150">
+                      <option
+                        v-for="option in options"
+                        v-bind:value="option.value"
+                      >
+                        @{{option.text}}
+                      </option>
+                    </select>
+                    <!-- dropdownnya -->
+                  </div>
+                  <!-- sampe sini -->
+                </div>
+              </div>
+              <!-- passenger -->
+              <div class="flex flex-col ml-10 w-1/2">
+                <p>Passengers</p>
+                <div class="flex flex-row border-b-2 border-gray-100 mt-4">
+                  <img src="../assets/icon/passenger.svg" alt="" />
+                  <input
+                    class="pl-2 w-1/2"
+                    type="number"
+                    name="adults"
+                    id=""
+                    placeholder="Adult"
+                  />
+                  <input
+                    class="pl-2 w-1/2"
+                    type="number"
+                    name="children"
+                    id=""
+                    placeholder="Child"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- bawah -->
+            <div class="flex flex-row my-4">
+              <!-- departure date-->
+              <div class="flex flex-col">
+                <p>Departure Date</p>
+                <!-- cari cara dropdown semua bandaranya -->
+                <div class="flex flex-row border-b-2 border-gray-100 mt-4">
+                  <img src="../assets/icon/calendar.svg" alt="" />
+                  <input class="pl-2" type="date" name="date" id="" />
+                </div>
+              </div>
+              <!-- seat class -->
+              <div class="flex flex-col mx-40">
+                <p>Seat Class</p>
+                <!-- cari cara dropdown semua bandaranya -->
+                <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+                  <img
+                    src="../assets/icon/seat.svg"
+                    class="w-11persen"
+                    alt=""
+                  />
+                  <!-- dari sini -->
+                  <div id="seatModal" class="mx-4">
+                    <!-- ini yg munculin valuenya -->
+                    <p id="valueSeatModal">@{{selected}}</p>
+                    <!-- dropdownnya -->
+                    <select v-model="selected" class="w-150">
+                      <option
+                        v-for="option in options"
+                        v-bind:value="option.value"
+                      >
+                        @{{option.text}}
+                      </option>
+                    </select>
+                    <!-- dropdownnya -->
+                  </div>
+                  <!-- sampe sini -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- button -->
+          <div class="flex flex-row-reverse">
+            <button
+              id="bookNow"
+              type="button"
+              class="biru-button text-white p-3 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg"
+            >
+              Book Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
     <!-- order details modal -->
     <div id="modalnya2" class="modal" style="display: none">
       <div
@@ -395,32 +415,94 @@
       >
         <h1 class="text-black text-3xl font-semibold">Order Details</h1>
         <!-- atas -->
-        <div>
+        <div class="flex mt-4 border-b-2 border-gray-100 px-4 pb-4">
           <!-- kiri foto maskapai -->
-          <div>
+          <div class="mr-8">
             <h1>Nama Maskapai</h1>
-            <img src="../assets/airline/garuda.png" alt="" />
+            <img
+              class="mx-auto my-4 w-10/12"
+              src="../assets/airline/garuda.png"
+              alt=""
+            />
           </div>
-          <!-- kanan perintilan -->
-          <div>
+          <!--  perintilan -->
+          <div
+            class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-x-14 gap-y-6"
+          >
             <!-- pake grid -->
+            <div>
+              <div>
+                <p>From</p>
+                <p class="text-black text-lg font-semibold">Jakarta (JKTC)</p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <p>To</p>
+                <p class="text-black text-lg font-semibold">Surabaya (SBYC)</p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <p>Passenger</p>
+                <p class="text-black text-lg font-semibold">1 Adult</p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <p>Departure Date</p>
+                <p class="text-black text-lg font-semibold">Mon, 5 Apr 2021</p>
+              </div>
+            </div>
+            <div>
+              <div>
+                <p>Seat Class</p>
+                <p class="text-black text-lg font-semibold">First Class</p>
+              </div>
+            </div>
           </div>
         </div>
         <!-- bawah -->
-        <div>
+        <div class="mt-4">
           <!-- total order -->
-          <h1>Total order</h1>
-          <h1>Sekian</h1>
+          <div class="flex">
+            <h1 class="text-gray-600 mr-kick">Total Order</h1>
+            <h1 class="text-black font-semibold">IDR1.000.000</h1>
+          </div>
           <!-- button -->
-          <div class="flex flex-row-reverse">
-            <button>cancel</button>
+          <div class="flex flex-row-reverse mt-6">
             <button
+              id="btnSubmit"
               type="submit"
-              class="biru-button text-white p-3 rounded-md font-semibold w-1/6"
+              class="biru-button text-white p-3 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg"
             >
               Book Now
             </button>
+            <button
+              type="button"
+              class="mr-5 text-gray-400 border-gray-300 border-2 p-3 rounded-md font-semibold w-1/6"
+              id="btnCancel"
+            >
+              Cancel
+            </button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div id="modalnya3" class="modal px-96" style="display: none">
+      <div class="bg-white rounded-md">
+        <button
+          id="tutup"
+          class="w-min float-right p-4"
+          onclick="closeDelete()"
+        >
+          X
+        </button>
+        <div class="p-14">
+          <img class="w-1/4 mx-auto pb-4" src="../assets/check.svg" alt="" />
+          <h1 class="text-center text-2xl text-gray-800">
+            Profile Update Success
+          </h1>
         </div>
       </div>
     </div>
@@ -579,11 +661,16 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
     ></script>
-    <script src="../script/script.js"></script>
-    <script src="../script/tiketScript.js"></script>
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>  
+    <script type="text/javascript" src="{{asset('js/tiketScript.js')}}"></script>
     <script>
       var modal = document.getElementById("modalnya");
+      var modal2 = document.getElementById("modalnya2");
+      var modal3 = document.getElementById("modalnya3");
       var btnModal = document.getElementById("btnModal");
+      var bookNow = document.getElementById("bookNow");
+      var btnSubmit = document.getElementById("btnSubmit");
+      var btnCancel = document.getElementById("btnCancel");
 
       if (modal.style.display == "block") {
         modal.style.display = "none";
@@ -594,12 +681,35 @@
       btnModal.onclick = function () {
         modal.style.display = "block";
       };
+      // muncul
+      bookNow.onclick = function () {
+        modal2.style.display = "block";
+        modal.style.display = "none";
+      };
+      // muncul
+      btnSubmit.onclick = function () {
+        modal3.style.display = "block";
+        modal2.style.display = "none";
+      };
+      // goback
+      btnCancel.onclick = function () {
+        modal.style.display = "block";
+        modal2.style.display = "none";
+      };
+
       // ilang dimana aja
       window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
         }
+        if (event.target == modal3) {
+          modal3.style.display = "none";
+        }
       };
+      // deleteBtn close
+      function closeDelete() {
+        modal3.style.display = "none";
+      }
     </script>
   </body>
 </html>

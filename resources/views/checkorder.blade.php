@@ -8,7 +8,7 @@
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../style/main.css" />
+    <link rel="stylesheet" href="{{asset('css/main.css')}}" />
     <script src="https://unpkg.com/vue@next"></script>
     <title>Check Order</title>
   </head>
@@ -18,7 +18,9 @@
       id="regisWhite"
       class="flex py-8 px-24 justify-between sticky top-0 text-gray-700 bg-white"
     >
-      <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
+      <a href="{{ route('home') }}">
+        <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
+      </a>
       <div class="flex flex-col">
         <div class="flex space-x-6">
           <button class="w-36 pr-8" type="button">Check Order</button>
@@ -42,19 +44,19 @@
             <a href="">
               <div class="flex">
                 <img src="../assets/userUnactive.svg" alt="" />
-                <p class="pl-4">Profile</p>
+                <a href=""> <p class="pl-4">Profile</p> </a>
               </div>
             </a>
             <a href="">
               <div class="flex">
                 <img src="../assets/icon/lock.svg" alt="" />
-                <p class="pl-4">Change Password</p>
+                <a href=""> <p class="pl-4">Change Password</p> </a>
               </div>
             </a>
             <a href="">
               <div class="flex">
                 <img src="../assets/icon/door.svg" alt="" />
-                <p class="pl-4">Log Out</p>
+                <a href=""> <p class="pl-4">Log Out</p> </a>
               </div>
             </a>
           </div>
@@ -72,6 +74,7 @@
                 id="tutup"
                 class="w-min float-right p-4"
                 onclick="closeDelete()"
+                type="button"
               >
                 X
               </button>
@@ -94,7 +97,7 @@
                     Return
                   </button>
                   <button
-                    class="bg-red-600 text-white py-1 px-6 rounded-lg hover:shadow-lg"
+                    class="bg-red-600 text-white py-1 px-6 rounded-lg hover:shadow-lg hover:bg-red-800"
                     type="submit"
                   >
                     Cancel Order
@@ -123,14 +126,14 @@
                       <!-- dari sini -->
                       <div id="fromModal" class="mx-4">
                         <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                        <p id="valueFromModal">{{selected}}</p>
+                        <p id="valueFromModal">@{{selected}}</p>
                         <!-- dropdownnya -->
                         <select v-model="selected" class="w-150">
                           <option
                             v-for="option in options"
                             v-bind:value="option.value"
                           >
-                            {{option.text}}
+                            @{{option.text}}
                           </option>
                         </select>
                         <!-- dropdownnya -->
@@ -147,14 +150,14 @@
                       <!-- dari sini -->
                       <div id="toModal" class="mx-4">
                         <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                        <p id="valueToModal">{{selected}}</p>
+                        <p id="valueToModal">@{{selected}}</p>
                         <!-- dropdownnya -->
                         <select v-model="selected" class="w-150">
                           <option
                             v-for="option in options"
                             v-bind:value="option.value"
                           >
-                            {{option.text}}
+                            @{{option.text}}
                           </option>
                         </select>
                         <!-- dropdownnya -->
@@ -196,7 +199,7 @@
                     </div>
                   </div>
                   <!-- seat class -->
-                  <div class="flex flex-col mx-40">
+                  <div class="flex flex-col mx-16">
                     <p>Seat Class</p>
                     <!-- cari cara dropdown semua bandaranya -->
                     <div class="flex flex-row border-b-2 border-gray-100 mt-2">
@@ -208,14 +211,14 @@
                       <!-- dari sini -->
                       <div id="seatModal" class="mx-4">
                         <!-- ini yg munculin valuenya -->
-                        <p id="valueSeatModal">{{selected}}</p>
+                        <p id="valueSeatModal">@{{selected}}</p>
                         <!-- dropdownnya -->
                         <select v-model="selected" class="w-150">
                           <option
                             v-for="option in options"
                             v-bind:value="option.value"
                           >
-                            {{option.text}}
+                            @{{option.text}}
                           </option>
                         </select>
                         <!-- dropdownnya -->
@@ -232,9 +235,16 @@
                   type="submit"
                   class="biru-button text-white p-2 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg ml-3"
                 >
-                 Save Changes
+                  Save Changes
                 </button>
-                <button id="cancel" type="button" class="text-gray-700 p-2 rounded-md font-semibold w-1/6 border-2 border-gray-400 hover:shadow-lg">Cancel</button>
+                <button
+                  id="cancel"
+                  type="button"
+                  class="text-gray-700 p-2 rounded-md font-semibold w-1/6 border-2 border-gray-400 hover:shadow-lg"
+                  onclick="closeEdit()"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
@@ -423,8 +433,8 @@
         ©2021 JoFlights, Inc. All Rights Reserved.
       </h1>
     </div>
-    <script src="../script/script.js"></script>
-    <script src="../script/tiketScript.js"></script>
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>  
+    <script type="text/javascript" src="{{asset('js/tiketScript.js')}}"></script>
     <script>
       // ilang dimana aja
       let editnya = document.getElementById("editModal");

@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/cekorder', function () {
-    return view('checkorder');
-})->name('checkorder');
+
+Route::get('/user/checkorder', 'OrderController@index')->name('order');
 
 Auth::routes();
 
