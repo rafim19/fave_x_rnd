@@ -21,7 +21,7 @@
       </h1>
       <form method="POST" action="{{ route('password.update') }}">
             @csrf
-        <input type="hidden" name="token" value="{{ $token }}">
+        {{-- <input type="hidden" name="token" value="{{ $token }}"> --}}
         <input
           class="border-2 border-gray-300 rounded-sm mx-half w-3/4 my-10 p-2 rounded-md"
           type="password"
@@ -56,8 +56,8 @@
         </div>
       </form>
     </div>
-    <!-- <script type="text/javascript" src="{{asset('js/script.js')}}"></script>   -->
-    <!-- <script>
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+    <script>
       // confirm password
       var confirmPass = document.getElementById("confirmNewPassword");
       confirmPass.onkeyup = function () {
@@ -67,6 +67,6 @@
           document.getElementById("err-confirm").style.display = "none";
         }
       };
-    </script> -->
+    </script>
   </body>
 </html>

@@ -123,7 +123,7 @@
         >
           <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
             <img src="../assets/fillerpic.svg" alt="" />
-            <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+            <h1 class="text-2xl w-1/2 text-center pl-2">{{ Auth::user()->fullname }}</h1>
           </div>
           <div class="flex flex-col space-y-5">
             <div class="flex">
@@ -273,7 +273,8 @@
       </div>
     </form>
     <!-- modalnya -->
-    <form action="">
+    <form action="{{ route('store') }}" method="POST">
+      @csrf
       <div id="modalnya" class="modal">
         <div
           class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
@@ -295,7 +296,7 @@
                     <!-- ini yg munculin valuenya -->
                     <p id="valueFromModal">@{{selected}}</p>
                     <!-- dropdownnya -->
-                    <select v-model="selected" class="w-150">
+                    <select name="from" v-model="selected" class="w-150" value="@{{ option.value }}">
                       <option
                         v-for="option in options"
                         v-bind:value="option.value"
@@ -319,7 +320,7 @@
                     <!-- ini yg munculin valuenya -->
                     <p id="valueToModal">@{{selected}}</p>
                     <!-- dropdownnya -->
-                    <select v-model="selected" class="w-150">
+                    <select name="to" v-model="selected" class="w-150" value="@{{ option.value }}">
                       <option
                         v-for="option in options"
                         v-bind:value="option.value"
@@ -340,14 +341,14 @@
                   <input
                     class="pl-2 w-1/2"
                     type="number"
-                    name="adults"
+                    name="adult"
                     id=""
                     placeholder="Adult"
                   />
                   <input
                     class="pl-2 w-1/2"
                     type="number"
-                    name="children"
+                    name="child"
                     id=""
                     placeholder="Child"
                   />
@@ -362,7 +363,7 @@
                 <!-- cari cara dropdown semua bandaranya -->
                 <div class="flex flex-row border-b-2 border-gray-100 mt-4">
                   <img src="../assets/icon/calendar.svg" alt="" />
-                  <input class="pl-2" type="date" name="date" id="" />
+                  <input class="pl-2" type="date" name="departure" id="" />
                 </div>
               </div>
               <!-- seat class -->
@@ -380,7 +381,7 @@
                     <!-- ini yg munculin valuenya -->
                     <p id="valueSeatModal">@{{selected}}</p>
                     <!-- dropdownnya -->
-                    <select v-model="selected" class="w-150">
+                    <select name="seatclass" v-model="selected" class="w-150" value="@{{ option.value }}">
                       <option
                         v-for="option in options"
                         v-bind:value="option.value"
@@ -399,7 +400,7 @@
           <div class="flex flex-row-reverse">
             <button
               id="bookNow"
-              type="button"
+              type="submit"
               class="biru-button text-white p-3 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg"
             >
               Book Now

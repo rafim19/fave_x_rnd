@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'from', 'to', 'adult', 'child', 'departure', 'seatclass'
+        'user_id', 'from', 'to', 'adult', 'child', 'departure', 'seatclass'
      ];
 }

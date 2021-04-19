@@ -17,4 +17,25 @@ class OrderController extends Controller
         $user = $request->user();
         return view('checkorder', compact('user'));
     }
+
+    public function store(Request $request) {
+        $request->validate([
+            'from' => 'required',
+            'to' => 'required',
+            'adult' => 'required',
+            'child' => 'required',
+            'departure' => 'required',
+            'seatclass' => 'required',
+        ]);
+        Order::create([
+            'user_id' => \Auth::user()->id,
+            'from' => $request->from,
+            'to' => $request->to,
+            'adult' => $request->adult,
+            'child' =>$request->child,
+            'departure' => $request->departure,
+            'seatclass' =>$request->seatclass,
+        ]);
+        return redirect('/user/checkorder');
+    }
 }

@@ -38,7 +38,7 @@
         >
           <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
             <img src="../assets/fillerpic.svg" alt="" />
-            <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+            <h1 class="text-2xl w-1/2 text-center pl-2">{{ Auth::user()->fullname }}</h1>
           </div>
           <div class="flex flex-col space-y-5">
             <a href="">
@@ -66,189 +66,6 @@
     <div id="container" class="mx-24 my-8">
       <h1 class="text-4xl font-semibold text-gray-700 py-4">My Order</h1>
       <div class="py-10 px-8 flex">
-        <!-- deleteModal -->
-        <form action="">
-          <div id="deleteModal" class="modal px-96 font-semibold">
-            <div class="bg-white rounded-lg -mx-8">
-              <button
-                id="tutup"
-                class="w-min float-right p-4"
-                onclick="closeDelete()"
-                type="button"
-              >
-                X
-              </button>
-              <div class="p-14">
-                <img
-                  class="w-1/4 mx-auto pb-4"
-                  src="../assets/icon/ion_trash-bin-big.svg"
-                  alt=""
-                />
-                <h1 class="text-center text-2xl text-gray-800">
-                  Are you sure you want to cancel your order?
-                </h1>
-                <div class="text-center space-x-2 mt-6">
-                  <button
-                    class="bg-white border-2 border-gray-300 py-1 px-10 text-gray-500 rounded-lg w-32 hover:shadow-lg"
-                    type="button"
-                    id="tutupjuga"
-                    onclick="closeDelete()"
-                  >
-                    Return
-                  </button>
-                  <button
-                    class="bg-red-600 text-white py-1 px-6 rounded-lg hover:shadow-lg hover:bg-red-800"
-                    type="submit"
-                  >
-                    Cancel Order
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <!-- editModal -->
-        <form action="">
-          <div id="editModal" class="modal">
-            <div
-              class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
-            >
-              <h1 class="text-black text-3xl font-semibold">Your Ticket</h1>
-              <!-- menu milih mesen -->
-              <div class="flex flex-col my-4">
-                <!-- atas -->
-                <div class="flex flex-row">
-                  <!-- from -->
-                  <div class="flex flex-col">
-                    <p>From</p>
-                    <div class="flex flex-row border-b-2 border-gray-100 mt-1">
-                      <img src="../assets/icon/departure.svg" alt="" />
-                      <!-- dari sini -->
-                      <div id="fromModal" class="mx-4">
-                        <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                        <p id="valueFromModal">@{{selected}}</p>
-                        <!-- dropdownnya -->
-                        <select v-model="selected" class="w-150">
-                          <option
-                            v-for="option in options"
-                            v-bind:value="option.value"
-                          >
-                            @{{option.text}}
-                          </option>
-                        </select>
-                        <!-- dropdownnya -->
-                      </div>
-                      <!-- sampe sini -->
-                    </div>
-                  </div>
-                  <!-- to -->
-                  <div class="flex flex-col">
-                    <p>To</p>
-                    <!-- cari cara dropdown semua bandaranya -->
-                    <div class="flex flex-row border-b-2 border-gray-100 mt-1">
-                      <img src="../assets/icon/landing.svg" alt="" />
-                      <!-- dari sini -->
-                      <div id="toModal" class="mx-4">
-                        <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                        <p id="valueToModal">@{{selected}}</p>
-                        <!-- dropdownnya -->
-                        <select v-model="selected" class="w-150">
-                          <option
-                            v-for="option in options"
-                            v-bind:value="option.value"
-                          >
-                            @{{option.text}}
-                          </option>
-                        </select>
-                        <!-- dropdownnya -->
-                      </div>
-                      <!-- sampe sini -->
-                    </div>
-                  </div>
-                  <!-- passenger -->
-                  <div class="flex flex-col ml-10 w-1/2">
-                    <p>Passengers</p>
-                    <div class="flex flex-row border-b-2 border-gray-100 mt-4">
-                      <img src="../assets/icon/passenger.svg" alt="" />
-                      <input
-                        class="pl-2 w-1/2"
-                        type="number"
-                        name="adults"
-                        id=""
-                        placeholder="Adult"
-                      />
-                      <input
-                        class="pl-2 w-1/2"
-                        type="number"
-                        name="children"
-                        id=""
-                        placeholder="Child"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- bawah -->
-                <div class="flex flex-row my-4">
-                  <!-- departure date-->
-                  <div class="flex flex-col">
-                    <p>Departure Date</p>
-                    <!-- cari cara dropdown semua bandaranya -->
-                    <div class="flex flex-row border-b-2 border-gray-100 mt-4">
-                      <img src="../assets/icon/calendar.svg" alt="" />
-                      <input class="pl-2" type="date" name="date" id="" />
-                    </div>
-                  </div>
-                  <!-- seat class -->
-                  <div class="flex flex-col mx-16">
-                    <p>Seat Class</p>
-                    <!-- cari cara dropdown semua bandaranya -->
-                    <div class="flex flex-row border-b-2 border-gray-100 mt-2">
-                      <img
-                        src="../assets/icon/seat.svg"
-                        class="w-11persen"
-                        alt=""
-                      />
-                      <!-- dari sini -->
-                      <div id="seatModal" class="mx-4">
-                        <!-- ini yg munculin valuenya -->
-                        <p id="valueSeatModal">@{{selected}}</p>
-                        <!-- dropdownnya -->
-                        <select v-model="selected" class="w-150">
-                          <option
-                            v-for="option in options"
-                            v-bind:value="option.value"
-                          >
-                            @{{option.text}}
-                          </option>
-                        </select>
-                        <!-- dropdownnya -->
-                      </div>
-                      <!-- sampe sini -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- button -->
-              <div class="flex flex-row-reverse">
-                <button
-                  id="bookNow"
-                  type="submit"
-                  class="biru-button text-white p-2 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg ml-3"
-                >
-                  Save Changes
-                </button>
-                <button
-                  id="cancel"
-                  type="button"
-                  class="text-gray-700 p-2 rounded-md font-semibold w-1/6 border-2 border-gray-400 hover:shadow-lg"
-                  onclick="closeEdit()"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
         <div id="tabelnya">
           <div class="table w-full text-center text-gray-800 font-semibold">
             <div class="table-header-group">
@@ -271,26 +88,27 @@
                 <div class="table-cell border-b-2 border-t-2"></div>
                 <div class="table-cell border-b-2 border-t-2"></div>
               </div>
+              @foreach ($user->orders as $order)
               <div class="table-row">
                 <div class="table-cell inline-block align-middle border-b-2">
                   A001
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
-                  Jakarta (JKTC)
+                  {{ $order->from }}
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
-                  Surabaya (SBYC)
+                  {{ $order->to }}
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
-                  05/04/2021
+                  {{ $order->departure }}
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
-                  First Class
+                  {{ $order->seatclass }}
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
                   <div>
-                    <p>1 Adult</p>
-                    <p>0 Child</p>
+                    <p>{{ $order->adult }} Adult</p>
+                    <p>{{ $order->child }} Child</p>
                   </div>
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
@@ -305,6 +123,139 @@
                     src="../assets/icon/ant-design_edit-filled.svg"
                     alt=""
                   />
+                  <!-- editModal -->
+                  <form action="">
+                    <div id="editModal" class="modal">
+                      <div
+                        class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
+                      >
+                        <h1 class="text-black text-3xl font-semibold">Your Ticket</h1>
+                        <!-- menu milih mesen -->
+                        <div class="flex flex-col my-4">
+                          <!-- atas -->
+                          <div class="flex flex-row">
+                            <!-- from -->
+                            <div class="flex flex-col">
+                              <p>From</p>
+                              <div class="flex flex-row border-b-2 border-gray-100 mt-1">
+                                <img src="../assets/icon/departure.svg" alt="" />
+                                <!-- dari sini -->
+                                <div id="fromModal" class="mx-4">
+                                  <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
+                                  <p id="valueFromModal">{{ $order->from }}</p>
+                                  <!-- dropdownnya -->
+                                  <select v-model="selected" class="w-150">
+                                    <option
+                                      v-for="option in options"
+                                      v-bind:value="option.value"
+                                    >
+                                      @{{option.text}}
+                                    </option>
+                                  </select>
+                                  <!-- dropdownnya -->
+                                </div>
+                                <!-- sampe sini -->
+                              </div>
+                            </div>
+                            <!-- to -->
+                            <div class="flex flex-col">
+                              <p>To</p>
+                              <div class="flex flex-row border-b-2 border-gray-100 mt-1">
+                                <img src="../assets/icon/landing.svg" alt="" />
+                                <!-- dari sini -->
+                                <div id="toModal" class="mx-4">
+                                  <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
+                                  <p id="valueToModal">@{{selected}}</p>
+                                  <!-- dropdownnya -->
+                                  <select v-model="selected" class="w-150">
+                                    <option
+                                      v-for="option in options"
+                                      v-bind:value="option.value"
+                                    >
+                                      @{{option.text}}
+                                    </option>
+                                  </select>
+                                  <!-- dropdownnya -->
+                                </div>
+                                <!-- sampe sini -->
+                              </div>
+                            </div>
+                            <!-- passenger -->
+                            <div class="flex flex-col ml-10 w-1/2">
+                              <p>Passengers</p>
+                              <div class="flex flex-row border-b-2 border-gray-100 mt-4">
+                                <img src="../assets/icon/passenger.svg" alt="" />
+                                <input
+                                  class="pl-2 w-1/2"
+                                  type="number"
+                                  name="adults"
+                                  id=""
+                                  placeholder="Adult"
+                                />
+                                <input
+                                  class="pl-2 w-1/2"
+                                  type="number"
+                                  name="children"
+                                  id=""
+                                  placeholder="Child"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <!-- bawah -->
+                          <div class="flex flex-row my-4">
+                            <!-- departure date-->
+                            <div class="flex flex-col">
+                              <p>Departure Date</p>
+                              <!-- cari cara dropdown semua bandaranya -->
+                              <div class="flex flex-row border-b-2 border-gray-100 mt-4">
+                                <img src="../assets/icon/calendar.svg" alt="" />
+                                <input class="pl-2" type="date" name="date" id="" />
+                              </div>
+                            </div>
+                            <!-- seat class -->
+                            <div class="flex flex-col mx-16">
+                              <p>Seat Class</p>
+                              <!-- cari cara dropdown semua bandaranya -->
+                              <div class="flex flex-row border-b-2 border-gray-100 mt-2">
+                                <img
+                                  src="../assets/icon/seat.svg"
+                                  class="w-11persen"
+                                  alt=""
+                                />
+                                <!-- dari sini -->
+                                <div id="seatModal" class="mx-4">
+                                  <!-- ini yg munculin valuenya -->
+                                  <p id="valueSeatModal">@{{selected}}</p>
+                                  <!-- dropdownnya -->
+                                  <select v-model="selected" class="w-150">
+                                    <option
+                                      v-for="option in options"
+                                      v-bind:value="option.value"
+                                    >
+                                      @{{option.text}}
+                                    </option>
+                                  </select>
+                                  <!-- dropdownnya -->
+                                </div>
+                                <!-- sampe sini -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- button -->
+                        <div class="flex flex-row-reverse">
+                          <button
+                            id="bookNow"
+                            type="submit"
+                            class="biru-button text-white p-2 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg ml-3"
+                          >
+                            Save Changes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
                 <div
                   class="table-cell px-6 py-6 border-b-2 cursor-pointer"
@@ -315,54 +266,42 @@
                     src="../assets/icon/ion_trash-bin.svg"
                     alt=""
                   />
+                  <!-- deleteModal -->
+                  <form action="">
+                    <div id="deleteModal" class="modal px-96 font-semibold">
+                      <div class="bg-white rounded-lg -mx-8">
+                        <button
+                          id="tutup"
+                          class="w-min float-right p-4"
+                          onclick="closeDelete()"
+                          type="button"
+                        >
+                          X
+                        </button>
+                        <div class="p-14">
+                          <img
+                            class="w-1/4 mx-auto pb-4"
+                            src="../assets/icon/ion_trash-bin-big.svg"
+                            alt=""
+                          />
+                          <h1 class="text-center text-2xl text-gray-800">
+                            Are you sure you want to cancel your order?
+                          </h1>
+                          <div class="text-center space-x-2 mt-6">
+                            <button
+                              class="bg-red-600 text-white py-1 px-6 rounded-lg hover:shadow-lg hover:bg-red-800"
+                              type="submit"
+                            >
+                              Cancel Order
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <div class="table-row">
-                <div class="table-cell inline-block align-middle border-b-2">
-                  A001
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  Jakarta (JKTC)
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  Surabaya (SBYC)
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  05/04/2021
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  First Class
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  <div>
-                    <p>1 Adult</p>
-                    <p>0 Child</p>
-                  </div>
-                </div>
-                <div class="table-cell inline-block align-middle border-b-2">
-                  IDR1.000.000
-                </div>
-                <div
-                  class="table-cell px-6 py-6 border-b-2 cursor-pointer"
-                  onclick="editBtn()"
-                >
-                  <img
-                    class="hover:shadow-lg"
-                    src="../assets/icon/ant-design_edit-filled.svg"
-                    alt=""
-                  />
-                </div>
-                <div
-                  class="table-cell px-6 py-6 border-b-2 cursor-pointer"
-                  onclick="deleteBtn()"
-                >
-                  <img
-                    class="hover:shadow-lg"
-                    src="../assets/icon/ion_trash-bin.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>
@@ -433,7 +372,7 @@
         ©2021 JoFlights, Inc. All Rights Reserved.
       </h1>
     </div>
-    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>  
+    <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/tiketScript.js')}}"></script>
     <script>
       // ilang dimana aja
@@ -441,26 +380,11 @@
       let deletenya = document.getElementById("deleteModal");
       // editBtn show
       function editBtn() {
-        if (editnya.style.display === "none") {
-          editnya.style.display = "block";
-        } else {
-          editnya.style.display = "none";
-        }
-      }
-      function closeEdit() {
-        editnya.style.display = "none";
+        editnya.style.display = "block";
       }
       // deleteBtn show
       function deleteBtn() {
-        if (deletenya.style.display === "none") {
-          deletenya.style.display = "block";
-        } else {
-          deletenya.style.display = "none";
-        }
-      }
-      // deleteBtn close
-      function closeDelete() {
-        deletenya.style.display = "none";
+        deletenya.style.display = "block";
       }
       // pas pencet window ngeclose
       window.onclick = function (event) {

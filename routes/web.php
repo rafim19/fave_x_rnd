@@ -18,7 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/user/checkorder', 'OrderController@index')->name('order');
-
+Route::post('/order/store', 'OrderController@store')->name('store');
+Route::get('/changepass', function() {
+    return view('profilePass');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
