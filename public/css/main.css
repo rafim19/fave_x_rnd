@@ -122,3 +122,8 @@
   background-color: #d7f3e3;
   border-color: #c7eed8;
 }
+.custom{
+  width:70px;
+  height: 70px;
+  clip-path: circle();
+}

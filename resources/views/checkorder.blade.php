@@ -22,8 +22,8 @@
         <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
       </a>
       <div class="flex flex-col">
-        <div class="flex space-x-6">
-          <button class="w-36 pr-8" type="button">Check Order</button>
+        <div class="flex space-x-6">      
+        <a href="{{route('home')}}"><button class="w-36 pr-8" type="button">Check Order</button></a>
           <img
             class="cursor-pointer"
             src="../assets/fillerpic.svg"
@@ -91,7 +91,7 @@
               @foreach ($user->orders as $order)
               <div class="table-row">
                 <div class="table-cell inline-block align-middle border-b-2">
-                  A001
+                  A00{{$order->id}}
                 </div>
                 <div class="table-cell inline-block align-middle border-b-2">
                   {{ $order->from }}
@@ -124,7 +124,9 @@
                     alt=""
                   />
                   <!-- editModal -->
-                  <form action="">
+                  <form action="{{route('update',$order->id)}}" method="POST">
+                  @csrf
+                  @method('PATCH')
                     <div id="editModal" class="modal">
                       <div
                         class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-lg p-12 flex flex-col rounded-2xl"
@@ -142,9 +144,9 @@
                                 <!-- dari sini -->
                                 <div id="fromModal" class="mx-4">
                                   <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                                  <p id="valueFromModal">{{ $order->from }}</p>
+                                  <p id="valueFromModal">Recent :{{ $order->from }}</p>
                                   <!-- dropdownnya -->
-                                  <select v-model="selected" class="w-150">
+                                  <select name="from" v-model="selected" class="w-150" value="@{{option.value}}">
                                     <option
                                       v-for="option in options"
                                       v-bind:value="option.value"
@@ -165,9 +167,9 @@
                                 <!-- dari sini -->
                                 <div id="toModal" class="mx-4">
                                   <!-- ini yg munculin valuenya, jadi kalo mau modif disini paling -->
-                                  <p id="valueToModal">@{{selected}}</p>
+                                  <p id="valueToModal">Recent :{{ $order->to }}</p>
                                   <!-- dropdownnya -->
-                                  <select v-model="selected" class="w-150">
+                                  <select name="to" v-model="selected" class="w-150" value="@{{option.value}}">
                                     <option
                                       v-for="option in options"
                                       v-bind:value="option.value"
@@ -188,16 +190,18 @@
                                 <input
                                   class="pl-2 w-1/2"
                                   type="number"
-                                  name="adults"
+                                  name="adult"
                                   id=""
                                   placeholder="Adult"
+                                  value="{{$order->adult}}"
                                 />
                                 <input
                                   class="pl-2 w-1/2"
                                   type="number"
-                                  name="children"
+                                  name="child"
                                   id=""
                                   placeholder="Child"
+                                  value="{{$order->child}}"
                                 />
                               </div>
                             </div>
@@ -210,7 +214,7 @@
                               <!-- cari cara dropdown semua bandaranya -->
                               <div class="flex flex-row border-b-2 border-gray-100 mt-4">
                                 <img src="../assets/icon/calendar.svg" alt="" />
-                                <input class="pl-2" type="date" name="date" id="" />
+                                <input class="pl-2" type="date" name="departure" value="{{$order->departure}}" id="" />
                               </div>
                             </div>
                             <!-- seat class -->
@@ -226,12 +230,14 @@
                                 <!-- dari sini -->
                                 <div id="seatModal" class="mx-4">
                                   <!-- ini yg munculin valuenya -->
-                                  <p id="valueSeatModal">@{{selected}}</p>
+                                  <p id="valueSeatModal">Recent :{{ $order->seatclass }}</p>
                                   <!-- dropdownnya -->
-                                  <select v-model="selected" class="w-150">
+                                  <select name="seatclass" v-model="selected" class="w-150" value="@{{option.value}}">
+
                                     <option
                                       v-for="option in options"
                                       v-bind:value="option.value"
+
                                     >
                                       @{{option.text}}
                                     </option>
@@ -267,7 +273,8 @@
                     alt=""
                   />
                   <!-- deleteModal -->
-                  <form action="">
+                  <form action="{{route('delete',$order->id)}}" method="POST">
+                  @csrf @method('DELETE')
                     <div id="deleteModal" class="modal px-96 font-semibold">
                       <div class="bg-white rounded-lg -mx-8">
                         <button

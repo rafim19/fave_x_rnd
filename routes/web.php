@@ -22,6 +22,8 @@ Route::post('/order/store', 'OrderController@store')->name('store');
 Route::get('/changepass', function() {
     return view('profilePass');
 });
+Route::delete('/order/delete/{id}','OrderController@destroy')->name('delete');
+Route::patch('/order/update/{id}','OrderController@upd')->name('update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

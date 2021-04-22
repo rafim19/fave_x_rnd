@@ -36,9 +36,8 @@
               <a href="{{ route('order') }}">Check Order</a>
             </button>
             <img
-              class="cursor-pointer"
-              src="../assets/userUnactive.svg"
-              {{-- src="{{ asset('storage/pp/'.Auth::user()->profile_picture) }}" --}}
+              class="cursor-pointer custom"
+              src="{{ asset('storage/pp/'.Auth::user()->profile_picture) }}"
               alt=""
               onclick="popUpBlue()"
             />
@@ -55,7 +54,7 @@
             <div class="flex flex-col space-y-5">
               <a href="">
                 <div class="flex">
-                  <img src="../assets/userUnactive.svg" alt="" />
+                  <img src="../assets/userUnactive.svg" class="" alt="" />
                   <p class="pl-4">Profile</p>
                 </div>
               </a>
@@ -502,7 +501,7 @@
         <div class="p-14">
           <img class="w-1/4 mx-auto pb-4" src="../assets/check.svg" alt="" />
           <h1 class="text-center text-2xl text-gray-800">
-            Profile Update Success
+            Book Success!
           </h1>
         </div>
       </div>

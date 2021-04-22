@@ -38,4 +38,28 @@ class OrderController extends Controller
         ]);
         return redirect('/user/checkorder');
     }
+
+    public function upd(Request $request, $id){
+        // $request->validate([
+        //     'from' => 'from,'.$id,
+        //     'to' => 'to,'.$id,
+        //     'adult' => 'adult,'.$id,
+        //     'child' => 'child,'.$id,
+        //     'departure' => 'departure,'.$id,
+        //     'seatclass' => 'seatclass,'.$id,
+        // ]);
+        Order::FindOrFail($id)->update([
+            'from' => $request->from,
+            'to' => $request->to,
+            'adult' => $request->adult,
+            'child' =>$request->child,
+            'departure' => $request->departure,
+            'seatclass' =>$request->seatclass,
+        ]);
+        return back();
+    }
+    public function destroy($id){
+        Order::destroy($id);
+        return back();
+    }
 }

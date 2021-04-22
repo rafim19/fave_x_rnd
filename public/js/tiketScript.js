@@ -288,7 +288,7 @@ const seatWhite = Vue.createApp({
       selected: "Search",
       options: [
         { text: 'Economy Class', value: "Economy Class"},
-        { text: 'Premium Class', value: "Premium Class"},
+        { text: 'Business Class', value: "Business Class"},
         { text: 'First Class', value: "First Class"},
       ],
       checkedOptions:[],
