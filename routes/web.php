@@ -35,6 +35,8 @@ Route::get('/resetpass', function () {
 Route::delete('/order/delete/{id}','OrderController@destroy')->name('delete');
 Route::patch('/order/update/{id}','OrderController@upd')->name('update');
 
+Route::patch('/user/profile/{id}', 'UserController@update')->name('profileUpdate');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

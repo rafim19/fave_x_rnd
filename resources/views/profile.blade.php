@@ -74,6 +74,7 @@
         Profile
       </h1>
       <div class="py-10 px-8 flex">
+        
         <div id="modalnya" class="modal px-96">
           <div class="bg-white rounded-md">
             <button id="tutup" class="w-min float-right p-4">X</button>
@@ -104,8 +105,9 @@
           </div>
         </div>
         <div id="kanan">
-          <form action="" method="" class="text-gray-500">
+          <form action="{{route('profileUpdate', Auth::user()->id)}}" method="POST" class="text-gray-500">
             @csrf
+            @method('PATCH')
             <p>Full Name</p>
             <input
               type="text"
