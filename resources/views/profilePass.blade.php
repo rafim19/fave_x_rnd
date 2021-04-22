@@ -17,13 +17,13 @@
       id="regisWhite"
       class="flex py-8 px-24 justify-between sticky top-0 text-gray-700 bg-white"
     >
-      <img class="w-30 h-10" src="../assets/logo-black.png" alt="" />
+      <a href="{{ route('home') }}"><img class="w-30 h-10" src="../assets/logo-black.png" alt="" /></a>
       <div class="flex flex-col">
         <div class="flex space-x-6">
-          <button class="w-36 pr-8" type="button">Check Order</button>
+          <button class="w-36 pr-8" type="button"><a href="{{ route('order') }}">Check Order</a></button>
           <img
-            class="cursor-pointer"
-            src="../assets/fillerpic.svg"
+            class="cursor-pointer custom"
+            src="{{ asset('storage/pp/'.Auth::user()->profile_picture) }}"
             alt=""
             onclick="popUpWhite()"
           />
@@ -34,28 +34,31 @@
           style="display: none"
         >
           <div class="flex border-b-2 border-gray-100 mb-5 pb-5">
-            <img src="../assets/fillerpic.svg" alt="" />
-            <h1 class="text-2xl w-1/2 text-center pl-2">Natasya Febryani</h1>
+            <img class="custom" src="{{ asset('storage/pp/'.Auth::user()->profile_picture) }}" alt="" />
+            <h1 class="text-2xl w-1/2 text-center pl-2">{{ Auth::user()->fullname }}</h1>
           </div>
           <div class="flex flex-col space-y-5">
-            <a href="">
+            <a href="{{ route('profile') }}">
               <div class="flex">
-                <img src="../assets/userUnactive.svg" alt="" />
-                <a href=""> <p class="pl-4">Profile</p> </a>
+                <img src="../assets/userUnactive.svg" class="" alt="" />
+                <p class="pl-4">Profile</p>
               </div>
             </a>
-            <a href="">
+            <a href="{{ route('profilePass') }}">
               <div class="flex">
                 <img src="../assets/icon/lock.svg" alt="" />
-                <a href=""> <p class="pl-4">Change Password</p> </a>
+                <p class="pl-4">Change Password</p>
               </div>
             </a>
-            <a href="">
-              <div class="flex">
-                <img src="../assets/icon/door.svg" alt="" />
-                <a href=""> <p class="pl-4">Log Out</p> </a>
-              </div>
-            </a>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <a href="">
+                <div class="flex">
+                  <img src="../assets/icon/door.svg" alt="" />
+                  <button type="submit" class="pl-4">Log Out</button>
+                </div>
+              </a>
+            </form>
           </div>
         </div>
       </div>
@@ -83,7 +86,8 @@
           </div>
         </div>
         <div id="kanan">
-          <form action="" class="text-gray-500">
+          <form method="POST" action="{{ route('password.update') }}">
+            @csrf
             <p>Current Password</p>
             <input
               type="password"

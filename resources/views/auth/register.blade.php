@@ -14,8 +14,10 @@
   <body class="bg-pesawat flex justify-center content-center">
     <div
       class="bg-white flex-col justify-center w-2/5 p-2 py-10 text-center my-16 rounded-lg"
-    >
-      <img class="w-1/4 mx-auto" src="{{asset('assets/logo-black.png')}}" alt="" />
+    > 
+      <a href="{{ route('welcome') }}">
+        <img class="w-1/4 mx-auto" src="{{asset('assets/logo-black.png')}}" alt="" />
+      </a>
       <h1 class="text-4xl font-bold pt-6 text-gray-800">Get Started</h1>
       <p class="text-gray-500 pt-2 w-3/4 mx-auto">
         Your journey starts here! Create your account now!
@@ -129,7 +131,7 @@
             </button>
             <p class="pt-4 text-gray-400 text-sm">
               Already have an account?
-              <a href="#"><span class="text-blue-400">Log in</span></a>
+              <a href="{{ route('login') }}"><span class="text-blue-400">Log in</span></a>
             </p>
           </div>
         </div>

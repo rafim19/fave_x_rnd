@@ -71,14 +71,14 @@
       <img class="w-11persen" src="../assets/logo-black.png" alt="" />
       <div class="flex space-x-6">
         <button class="w-36 border-r-2 border-gray-700 pr-8" type="button">
-          <a href="">Check Order</a>
+          <a href="{{ route('login') }}">Check Order</a>
         </button>
-        <button class="w-20" type="button"><a href="">Log in</a></button>
+        <button class="w-20" type="button"><a href="{{ route('login') }}">Log in</a></button>
         <button
           class="w-32 border-2 border-gray-700 rounded-full"
           type="button"
         >
-          <a href="">Register</a>
+          <a href="{{ route('register') }}">Register</a>
         </button>
       </div>
     </nav>
@@ -348,87 +348,6 @@
         </div>
       </div>
     </form>
-    <!-- order details modal -->
-    {{-- <div id="modalnya2" class="modal" style="display: none">
-      <div
-        class="border-2 shadow-lg bg-white mx-56 text-gray-400 rounded-md p-12 flex flex-col rounded-2xl"
-      >
-        <h1 class="text-black text-3xl font-semibold">Order Details</h1>
-        <!-- atas -->
-        <div class="flex mt-4 border-b-2 border-gray-100 px-4 pb-4">
-          <!-- kiri foto maskapai -->
-          <div class="mr-8">
-            <h1>Nama Maskapai</h1>
-            <img
-              class="mx-auto my-4 w-10/12"
-              src="../assets/airline/garuda.png"
-              alt=""
-            />
-          </div>
-          <!--  perintilan -->
-          <div
-            class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-x-14 gap-y-6"
-          >
-            <!-- pake grid -->
-            <div>
-              <div>
-                <p>From</p>
-                <p class="text-black text-lg font-semibold">Jakarta (JKTC)</p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p>To</p>
-                <p class="text-black text-lg font-semibold">Surabaya (SBYC)</p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p>Passenger</p>
-                <p class="text-black text-lg font-semibold">1 Adult</p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p>Departure Date</p>
-                <p class="text-black text-lg font-semibold">Mon, 5 Apr 2021</p>
-              </div>
-            </div>
-            <div>
-              <div>
-                <p>Seat Class</p>
-                <p class="text-black text-lg font-semibold">First Class</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- bawah -->
-        <div class="mt-4">
-          <!-- total order -->
-          <div class="flex">
-            <h1 class="text-gray-600 mr-kick">Total Order</h1>
-            <h1 class="text-black font-semibold">IDR1.000.000</h1>
-          </div>
-          <!-- button -->
-          <div class="flex flex-row-reverse mt-6">
-            <button
-              id="btnSubmit"
-              type="submit"
-              class="biru-button text-white p-3 rounded-md font-semibold w-1/6 hover:bg-blue-700 hover:shadow-lg"
-            >
-              Book Now
-            </button>
-            <button
-              type="button"
-              class="mr-5 text-gray-400 border-gray-300 border-2 p-3 rounded-md font-semibold w-1/6"
-              id="btnCancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> --}}
     <div id="modalnya3" class="modal px-96" style="display: none">
       <div class="bg-white rounded-md">
         <button

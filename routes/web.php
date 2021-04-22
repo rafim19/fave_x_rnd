@@ -15,15 +15,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/user/checkorder', 'OrderController@index')->name('order');
 Route::post('/order/store', 'OrderController@store')->name('store');
+
+Route::get('/profile', function() {
+    return view('profile');
+})->name('profile');
+
 Route::get('/changepass', function() {
     return view('profilePass');
-});
+})->name('profilePass');
+
+Route::get('/resetpass', function () {
+    return view('auth.passwords.reset');
+})->name('resetPass');
+
 Route::delete('/order/delete/{id}','OrderController@destroy')->name('delete');
 Route::patch('/order/update/{id}','OrderController@upd')->name('update');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

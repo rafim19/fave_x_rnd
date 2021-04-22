@@ -15,7 +15,9 @@
     <div
       class="bg-white flex-col justify-center w-2/5 p-2 py-10 text-center my-16 rounded-lg"
     >
-      <img class="w-1/4 mx-auto" src="{{asset('assets/logo-black.png')}}" alt="" />
+      <a href="{{ route('welcome') }}">
+        <img class="w-1/4 mx-auto" src="{{asset('assets/logo-black.png')}}" alt="" />
+      </a>
       <h1 class="text-4xl font-bold pt-6 text-gray-800">Welcome Back!</h1>
       <p class="text-gray-500 pt-2 w-3/4 mx-auto">
         Let’s discover your future trip destination
